@@ -30,8 +30,13 @@ app.use('/api/v1', router);
 
 
 app.use('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+    if (req.originalUrl === '/') {
+        res.send('Welcome to the server');
+    } else {
+        next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+    }
 });
+
 
 
 module.exports = app;
